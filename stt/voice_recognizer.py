@@ -18,8 +18,7 @@ def _init_model(model_dir, device, vad_model, vad_kwargs):
         remote_code="./model.py",
         vad_model=vad_model,
         vad_kwargs=vad_kwargs,
-        device=device,
-        disable_update=True
+        device=device
     )
 
 

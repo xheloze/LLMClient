@@ -41,7 +41,7 @@ class BilibiliClient:
         self.thread.start()
         print("bilibili直播间连接开启")
 
-    async def stop_and_close_with_timeout(self, client, timeout=10):
+    async def stop_and_close_with_timeout(self, client, timeout=20):
         try:
             await asyncio.wait_for(client.stop_and_close(), timeout)
         except asyncio.TimeoutError:
@@ -96,7 +96,7 @@ class MyHandler(blivedm.BaseHandler):
     def _on_open_live_danmaku(self, client: blivedm.OpenLiveClient, message: open_models.DanmakuMessage):
         print(f'[{message.room_id}] {message.uname}：{message.msg}')
         loop = asyncio.get_running_loop()
-        loop.run_in_executor(self.executor, self.llm_manager.call_llm, f"({message.uname} 说) {message.msg}")
+        loop.run_in_executor(self.executor, self.llm_manager.call_llm_by_comments, f"（用户“{message.uname}”说） {message.msg}")
 
     def _on_open_live_gift(self, client: blivedm.OpenLiveClient, message: open_models.GiftMessage):
         coin_type = '金瓜子' if message.paid else '银瓜子'
@@ -119,12 +119,21 @@ class MyHandler(blivedm.BaseHandler):
 
     def _on_open_live_like(self, client: blivedm.OpenLiveClient, message: open_models.LikeMessage):
         print(f'[{message.room_id}] {message.uname} 点赞')
+        loop = asyncio.get_running_loop()
+        loop.run_in_executor(self.executor, self.llm_manager.call_llm_by_comments,
+                             f"（一位用户“{message.uname}”点赞了爱丽丝的直播间） ")
 
     def _on_open_live_enter_room(self, client: blivedm.OpenLiveClient, message: open_models.RoomEnterMessage):
         print(f'[{message.room_id}] {message.uname} 进入房间')
+        # loop = asyncio.get_running_loop()
+        # loop.run_in_executor(self.executor, self.llm_manager.call_llm_by_comments,
+        #                      f"(一位用户“{message.uname}”进入了爱丽丝的直播间) ")
 
     def _on_open_live_start_live(self, client: blivedm.OpenLiveClient, message: open_models.LiveStartMessage):
         print(f'[{message.room_id}] 开始直播')
+        loop = asyncio.get_running_loop()
+        loop.run_in_executor(self.executor, self.llm_manager.call_llm_by_comments,
+                             f"（爱丽丝开始了直播） ")
 
     def _on_open_live_end_live(self, client: blivedm.OpenLiveClient, message: open_models.LiveEndMessage):
         print(f'[{message.room_id}] 结束直播')

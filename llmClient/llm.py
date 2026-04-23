@@ -73,6 +73,9 @@ class LLM(ABC):
     @abstractmethod
     async def call(self, prompt, tools, **kwargs): pass
 
+    @abstractmethod
+    async def shorten_history(self): pass
+
 
 
 

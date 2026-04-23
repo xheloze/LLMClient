@@ -91,7 +91,7 @@ with st.sidebar:
         )
         top_p = st.slider(
             "top_p",
-            0.00, 1.00, 0.6, 0.01,
+            0.00, 1.00, 0.7, 0.01,
             help="调整大模型top_p参数",
             key="top_p",
             on_change=llm_slider_changed
@@ -142,7 +142,10 @@ with st.sidebar:
                     url=model_url,
                     url_assistant=assistant_url,
                     temperature=temperature,
-                    top_p=top_p
+                    top_p=top_p,
+                    top_k=top_k,
+                    repetition_penalty=repetition_penalty,
+                    max_history=max_history
                 )
                 st.rerun()
 
@@ -187,25 +190,29 @@ with st.sidebar:
             "ACCESS_KEY_ID",
             placeholder="输入ACCESS_KEY_ID",
             value=os.environ.get("ACCESS_KEY_ID"),
-            help="bilibili直播间链接参数"
+            help="bilibili直播间链接参数",
+            type="password"
         )
         bili_access_key_secret = st.text_input(
             "ACCESS_KEY_SECRET",
             placeholder="输入ACCESS_KEY_SECRET",
             value=os.environ.get("ACCESS_KEY_SECRET"),
-            help="bilibili直播间链接参数"
+            help="bilibili直播间链接参数",
+            type="password"
         )
         bili_app_id = st.text_input(
             "APP_ID",
             placeholder="输入APP_ID",
             value=os.environ.get("APP_ID"),
-            help="bilibili直播间链接参数"
+            help="bilibili直播间链接参数",
+            type="password"
         )
         bili_room_auth_code = st.text_input(
             "ROOM_OWNER_AUTH_CODE",
             placeholder="输入ROOM_OWNER_AUTH_CODE",
             value=os.environ.get("ROOM_OWNER_AUTH_CODE"),
-            help="bilibili直播间链接参数"
+            help="bilibili直播间链接参数",
+            type="password"
         )
         # 动态按钮
         if st.session_state.bili_connected:

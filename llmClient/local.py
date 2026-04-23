@@ -229,7 +229,7 @@ class LocalLLMObject(LLM):
 
         summary_prompt = f"前情提要：{summary_temp}\n\n对话历史：{dialog_history}\n\n" \
                          f"综合上面的前情提要和对话历史中的剧情，为爱丽丝汇总成150字以内的记忆片段，并提取出需要长期记忆的重要细节信息。" \
-                         f"要求长度适中，需要保留对话历史中的人物和重要信息，并且反映最近的对话内容："
+                         f"对话历史要求用讲述故事的语气，长度适中，需要保留对话历史中的人物和关键信息，并且反映最近的对话内容："
         self.summary = await self.call_assistant(summary_prompt)
         return self.summary
 

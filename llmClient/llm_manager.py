@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import queue
 import time
 
 from dao.status import get_status_description
@@ -57,6 +58,7 @@ class LLMManager:
 
     def __init__(self):
         self.lock = False
+        self.comments_queue = ""
 
     def start_llm(self, url: str, url_assistant: str, temperature: float = 0.94, top_p: float = 0.7, top_k: int = 20,
                   repetition_penalty: float = None, max_history: int = 20) -> LLM:
@@ -90,7 +92,42 @@ class LLMManager:
                     tools=tools
                 )
             )
+            asyncio.run(self.llm.shorten_history())
             self.lock = False
             return response
+        else:
+            return "..."
+
+    def call_llm_by_comments(self, prompt) -> str:
+        default_embedding = "你现在正在bilibili进行直播，代替老师和观众互动。你需要尽量作出多样性的回答，避免重复的回答。"
+        if self.llm is not None:
+            # 初始化工具类
+            tools = get_general_tools()
+            status = init_status()
+            # 将弹幕存入缓存
+            if self.comments_queue:
+                self.comments_queue += f"\n{prompt}"
+            else:
+                self.comments_queue = prompt
+            while self.lock:
+                time.sleep(0.1)
+            if self.comments_queue != "":
+                self.lock = True
+                # 提取组合的弹幕，并清除弹幕缓存
+                comments = self.comments_queue
+                self.comments_queue = ""
+                thought, response, feedback, finish_reason, action_name = asyncio.run(
+                    self.llm.call(
+                        comments,
+                        embedding=default_embedding,
+                        status=status,
+                        tools=tools
+                    )
+                )
+                asyncio.run(self.llm.shorten_history())
+                self.lock = False
+                return response
+            else:
+                return
         else:
             return "..."
