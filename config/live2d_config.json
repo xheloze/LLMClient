@@ -1,0 +1,31 @@
+{
+  "model_name": "tendou_arisu",
+  "model_type": "live2d",
+  "model_path": "assets/models/arisis_model/",
+  "expressions": {
+    "normal": "normal.json",
+    "happy": "happy.json",
+    "angry": "angry.json",
+    "shy": "shy.json",
+    "thinking": "thinking.json",
+    "surprised": "surprised.json"
+  },
+  "motions": {
+    "idle": ["idle_01.motion3.json", "idle_02.motion3.json"],
+    "tap_head": ["tap_head_01.motion3.json"],
+    "tap_body": ["tap_body_01.motion3.json"],
+    "speak": ["speak_01.motion3.json"]
+  },
+  "window": {
+    "width": 600,
+    "height": 800,
+    "x": 100,
+    "y": 100,
+    "always_on_top": true,
+    "transparent": true
+  },
+  "websocket": {
+    "host": "127.0.0.1",
+    "port": 8765
+  }
+}

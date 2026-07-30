@@ -1,0 +1,28 @@
+{
+  "avatar_dir": "avatar/",
+  "window": {
+    "width": 500,
+    "height": 700,
+    "x": 100,
+    "y": 100
+  },
+  "images": {
+    "normal": "plain.png",
+    "happy": "happy.png",
+    "smile": "smile.png",
+    "angry": "angry.png",
+    "sad": "cry.png",
+    "surprised": "thinking.png",
+    "shy": "shy.png",
+    "awkward": "awkward.png",
+    "confident": "confident.png",
+    "sweating": "sweating.png",
+    "touching": "touching.png",
+    "awake": "awake.png",
+    "screwup": "screwup.png"
+  },
+  "websocket": {
+    "host": "127.0.0.1",
+    "port": 8766
+  }
+}
