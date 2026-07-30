@@ -1,0 +1,39 @@
+{
+  "ai": {
+    "provider": "siliconflow",
+    "api_key": "",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "max_tokens": 300,
+    "temperature": 0.8
+  },
+  "avatar": {
+    "mode": "diff",
+    "images_path": "assets/avatar",
+    "window_width": 400,
+    "window_height": 600,
+    "position": "bottom_right",
+    "opacity": 1.0,
+    "click_through": false
+  },
+  "voice": {
+    "stt_provider": "funasr",
+    "tts_provider": "edge",
+    "ddsp_enabled": true,
+    "ddsp_model_path": "assets/models/model.sf_pkg",
+    "ddsp_device": "cuda",
+    "edge_voice": "zh-CN-XiaoxiaoNeural",
+    "volume": 1.0,
+    "rate": 1.0
+  },
+  "bilibili": {
+    "room_id": "",
+    "auto_connect": false,
+    "danmaku_reply": true,
+    "gift_reply": true,
+    "like_reply": false
+  },
+  "character": {
+    "name": "天童爱丽丝",
+    "prompt_file": "alice_prompt.txt"
+  }
+}

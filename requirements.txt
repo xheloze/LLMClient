@@ -14,3 +14,8 @@ streamlit_extras==0.5.5
 torch==2.6.0
 torchaudio==2.6.0
 yarl==1.18.3
+# Live2D 渲染支持
+websockets>=12.0
+PyQt5>=5.15.0
+# 可选：Live2D Cubism SDK (需手动下载)
+# Live2DCubismCore>=1.0.0
