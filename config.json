@@ -1,0 +1,27 @@
+{
+  "api_key": "",
+  "model_name": "Qwen/Qwen2.5-7B-Instruct",
+  "ddsp_model_path": "assets/models/model.sf_pkg",
+  "avatar_folder": "avatar",
+  "use_ddsp": true,
+  "window_width": 400,
+  "window_height": 600,
+  "expression_mapping": {
+    "normal": "plain.png",
+    "happy": "happy.png",
+    "smile": "smile.png",
+    "angry": "angry.png",
+    "cry": "cry.png",
+    "shy": "shy.png",
+    "thinking": "thinking.png",
+    "confident": "confident.png",
+    "awkward": "awkward.png",
+    "sweating": "sweating.png",
+    "touching": "touching.png",
+    "screwup": "screwup.png",
+    "awake": "awake.png",
+    "surprised": "awkward.png",
+    "excited": "happy.png",
+    "love": "smile.png"
+  }
+}

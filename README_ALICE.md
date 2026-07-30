@@ -1,170 +1,170 @@
-# 天童爱丽丝 - 差分版 Neuro-sama
+# 🎮 天童爱丽丝 - 差分版 Neuro-sama
 
-一个基于 PyQt5 的桌面宠物程序，具有完整的语音交互、LLM 对话和 DDSP 变声功能。
+一个基于 PyQt5 的桌面宠物程序，拥有完整的 AI 对话、语音交互和表情切换功能。
 
 ## ✨ 特性
 
-- 🎭 **差分图表情系统**：支持 14+ 种表情自动切换
-- 🗣️ **语音交互**：语音识别 (STT) + 语音合成 (TTS)
-- 🤖 **免费高智商 AI**：集成 SiliconFlow 免费 API (Qwen2.5-7B/32B)
-- 🎵 **DDSP 变声**：支持本地 .sf_pkg 模型推理（可选）
-- 🖥️ **桌面挂件**：透明背景、鼠标穿透、系统托盘
-- 📝 **完整人设**：内置天童爱丽丝详细 Prompt
-
-## 🚀 快速开始
-
-### 1. 准备资源
-
-```bash
-# 创建文件夹
-mkdir assets/models
-mkdir assets/avatar
-```
-
-**差分图**：将图片放入 `assets/avatar/`，命名示例：
-- plain.png (普通)
-- happy.png (开心)
-- smile.png (微笑)
-- angry.png (生气)
-- sad.png (伤心)
-- shy.png (害羞)
-- ...
-
-**DDSP 模型**：将 `.sf_pkg` 文件放入 `assets/models/`
-
-### 2. 配置 API Key
-
-编辑 `config_alice.json`：
-```json
-{
-  "ai": {
-    "api_key": "你的 SiliconFlow API Key"
-  }
-}
-```
-
-获取免费 API Key：https://cloud.siliconflow.cn/
-
-### 3. 一键启动
-
-**Windows**: 双击 `start_alice.bat`
-
-**手动启动**:
-```bash
-# 安装依赖
-python install_deps.py
-
-# 运行程序
-python neuro_alice_core.py
-```
+- **差分图显示**：支持 13 种表情自动切换
+- **免费 AI**：集成 SiliconFlow API（Qwen2.5-7B/32B）
+- **语音交互**：Edge-TTS 语音合成 + 本地 DDSP 音色转换
+- **桌面挂件**：透明背景、鼠标穿透、系统托盘
+- **完整人设**：天童爱丽丝角色设定
 
 ## 📁 项目结构
 
 ```
 /workspace/
-├── start_alice.bat          # 一键启动脚本
-├── install_deps.py          # 智能依赖安装器
-├── neuro_alice_core.py      # 主程序
-├── config_alice.json        # 配置文件
-├── alice_prompt.txt         # 人设 Prompt
-├── assets/
-│   ├── models/              # DDSP 模型 (.sf_pkg)
-│   └── avatar/              # 差分图 (PNG)
-└── README_ALICE.md          # 本文件
+├── neuro_alice_core.py    # 主程序
+├── config.json            # 配置文件
+├── alice_prompt.txt       # 人设文件
+├── start_alice.bat        # Windows 一键启动
+├── avatar/                # 差分图目录（已有 13 张图片）
+│   ├── plain.png
+│   ├── happy.png
+│   ├── smile.png
+│   └── ...
+├── assets/models/         # DDSP 模型目录
+└── README_ALICE.md        # 本文件
 ```
 
-## 🎮 使用说明
+## 🚀 快速开始
 
-### 操作方式
-- **拖拽**：左键拖动调整位置
-- **右键菜单**：
-  - 对爱丽丝说话（语音输入）
-  - 切换鼠标穿透
-  - 退出程序
+### 1. 准备资源
 
-### 表情触发
-LLM 回复中自动解析表情标记：
-- `【表情：happy】` → 切换到 happy.png
-- `[表情：开心]` → 切换到 happy.png
+**差分图**：已存在于 `avatar/` 文件夹，包含：
+- plain.png, happy.png, smile.png, angry.png, cry.png
+- shy.png, thinking.png, confident.png, awkward.png
+- sweating.png, touching.png, screwup.png, awake.png
 
-### DDSP 变声
-在 `config_alice.json` 中启用：
+**DDSP 模型**（可选）：
+- 将 `.sf_pkg` 模型放入 `assets/models/`
+- 修改 `config.json` 中的 `ddsp_model_path`
+
+### 2. 获取 API Key
+
+1. 访问 https://cloud.siliconflow.cn/
+2. 注册账号并登录
+3. 在"API Keys"页面创建新密钥
+4. 复制密钥到 `config.json`
+
+### 3. 配置参数
+
+编辑 `config.json`：
 ```json
 {
-  "voice": {
-    "ddsp_enabled": true,
-    "ddsp_model_path": "assets/models/your_model.sf_pkg"
-  }
+  "api_key": "sk-你的 API Key",
+  "model_name": "Qwen/Qwen2.5-7B-Instruct",
+  "ddsp_model_path": "assets/models/你的模型.sf_pkg",
+  "avatar_folder": "avatar",
+  "use_ddsp": true,
+  "window_width": 400,
+  "window_height": 600
 }
 ```
 
-## ⚙️ 配置说明
+### 4. 启动程序
 
-| 配置项 | 说明 | 默认值 |
-|--------|------|--------|
-| ai.api_key | SiliconFlow API Key | 必填 |
-| ai.model | LLM 模型名称 | Qwen/Qwen2.5-7B-Instruct |
-| avatar.images_path | 差分图文件夹 | assets/avatar |
-| avatar.window_width | 窗口宽度 | 400 |
-| avatar.window_height | 窗口高度 | 600 |
-| voice.ddsp_enabled | 启用 DDSP | false |
-| voice.edge_voice | Edge-TTS 音色 | zh-CN-XiaoxiaoNeural |
-| bilibili.room_id | B 站直播间 ID | 空 |
+**Windows**：双击 `start_alice.bat`
 
-## 🔧 故障排除
-
-### 依赖安装失败
+**Linux/Mac**：
 ```bash
-# 手动安装核心依赖
-pip install PyQt5 Pillow requests edge-tts playsound SpeechRecognition
+python neuro_alice_core.py
 ```
 
-### DDSP 无法使用
-程序会自动降级为 Edge-TTS，不影响基本功能。
+程序会自动检测并安装缺失的依赖。
 
-### 语音识别不工作
-- 检查麦克风权限
-- 确保网络连接正常（使用 Google 识别）
+## 🎮 使用说明
 
-### 图片不显示
-- 检查图片路径是否正确
-- 确保图片格式为 PNG/JPG
-- 查看控制台错误信息
+### 基本操作
+- **拖动**：左键点击并拖动窗口
+- **菜单**：右键点击系统托盘图标
+- **测试对话**：托盘菜单 → "对爱丽丝说话 (测试)"
+- **鼠标穿透**：托盘菜单 → "切换鼠标穿透"
+- **退出**：托盘菜单 → "退出"
 
-## 📊 性能要求
+### 表情系统
 
-| 组件 | 最低配置 | 推荐配置 |
-|------|----------|----------|
-| CPU | 4 核 | 6 核+ |
-| 内存 | 8GB | 16GB+ |
-| GPU | 无要求 | RTX 2060+ (DDSP) |
-| 存储 | 1GB | 5GB+ |
+AI 回复时会自动识别表情标记：
+- 格式：`【表情：happy】` 或 `[表情：smile]`
+- 也支持关键词自动匹配（如"开心"→happy）
 
-您的配置 (i5-8400 + RTX 2060 + 32GB) **完美适用**！
+可用表情：
+| 表情名 | 对应图片 | 触发词 |
+|--------|---------|--------|
+| normal | plain.png | 普通、平静 |
+| happy | happy.png | 开心、高兴 |
+| smile | smile.png | 微笑 |
+| angry | angry.png | 生气 |
+| cry | cry.png | 哭、伤心 |
+| shy | shy.png | 害羞 |
+| thinking | thinking.png | 思考 |
+| confident | confident.png | 自信 |
+| awkward | awkward.png | 尴尬 |
+| sweating | sweating.png | 流汗 |
+| touching | touching.png | 感动 |
+| screwup | screwup.png | 搞砸 |
+| awake | awake.png | 清醒 |
 
-## 🌟 进阶功能
+## 🔧 高级配置
 
-### 自定义 Prompt
-编辑 `alice_prompt.txt` 修改人设。
+### DDSP 音色转换
 
-### 添加新表情
-1. 将图片放入 `assets/avatar/`
-2. 在 `neuro_alice_core.py` 的 `ExpressionMapper` 中添加映射
+如果需要使用 DDSP 变声：
+1. 确保 `assets/models/` 中有 `.sf_pkg` 模型
+2. 设置 `config.json` 中 `"use_ddsp": true`
+3. 安装 ddsp-svc 库（可选，用于本地推理）
 
-### 集成 B 站直播
-在配置文件中设置 `bilibili.room_id`，未来版本将支持自动回复弹幕。
+注意：当前版本使用简化方案，如需完整 DDSP 推理功能，需要集成 ddsp-svc 库。
 
-## 📝 许可证
+### 自定义人设
 
-本项目基于 Momotalk 项目改造，遵循原项目许可证。
+编辑 `alice_prompt.txt` 修改角色设定。
 
-## 🙏 致谢
+### 更换 AI 模型
 
-- [SiliconFlow](https://siliconflow.cn/) - 免费 LLM API
-- [Edge-TTS](https://github.com/rany2/edge-tts) - 微软语音合成
-- [DDSP-SVC](https://github.com/yxlllc/ddsp-svc) - 音色转换
-- [Blue Archive](https://bluearchive.jp/) - 天童爱丽丝角色
+在 `config.json` 中修改 `model_name`：
+- `Qwen/Qwen2.5-7B-Instruct`（推荐，平衡）
+- `Qwen/Qwen2.5-32B-Instruct`（更智能，需要更高配额）
+- `THUDM/glm-edge-1.5b-chat`（快速）
+
+## ❓ 常见问题
+
+### Q: 提示"API Key 无效"
+A: 检查 `config.json` 中的 API Key 是否正确复制，确保没有多余空格。
+
+### Q: 图片不显示
+A: 确认 `avatar/` 文件夹中有对应的 PNG 图片，且文件名正确。
+
+### Q: 没有声音
+A: 检查系统音量，确保扬声器正常工作。首次运行会自动下载 TTS 音频文件。
+
+### Q: 依赖安装失败
+A: 以管理员身份运行命令行，或手动安装：
+```bash
+pip install PyQt5 Pillow requests edge-tts sounddevice webrtcvad -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+### Q: DDSP 推理不工作
+A: 当前版本为简化实现，需要集成 ddsp-svc 库才能实现真正的音色转换。
+
+## 📝 更新日志
+
+- ✅ 自动依赖安装
+- ✅ 差分图表情系统（13 种表情）
+- ✅ SiliconFlow 免费 AI 接入
+- ✅ Edge-TTS 语音合成
+- ✅ 桌面透明悬浮窗
+- ✅ 系统托盘菜单
+- ⏳ DDSP 本地推理（占位符）
+- ⏳ 语音识别输入
+
+## 🎯 下一步计划
+
+1. 集成完整的 ddsp-svc 推理
+2. 添加语音识别（Whisper/VAD）
+3. 支持 B 站直播弹幕互动
+4. 添加更多表情和动作
 
 ---
 
-**邦邦卡邦!! 爱丽丝准备好和你一起冒险了！** 🎮✨
+**享受与爱丽丝的互动吧！邦邦卡邦!!** 🎮✨
